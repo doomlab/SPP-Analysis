@@ -215,7 +215,7 @@ itemdata$t.POSr = gsub("RB", "other", itemdata$t.POSr)
 itemdata$t.POSr = gsub("mi", "other", itemdata$t.POSr)
 
 #write.csv(itemdata[ , c("prime", "target", "p.POSr", "t.POSr")], "jcn_data.csv", row.names = F)
-
+write.csv(itemdata, "itemdata.csv", row.names = F)
 ##here we will need to apply the same basic structure into creating the overall LDT/naming datasets
 
 subjectdataLDT = matrix(NA, nrow(allLDT), ncol = 33)
