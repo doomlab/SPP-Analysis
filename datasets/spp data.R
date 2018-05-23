@@ -37,7 +37,7 @@ cosinefs = read_excel("feature set size.xlsx")
 cosiness = as.data.frame(table(cosine_data$first))
 cosinessSMALL = read.csv("cos set size.csv")
 cbow = read.csv("cbow mandera.csv")
-######ADD JCN HERE#######
+jcn = read.csv("jcn_data.csv")
 
 ##thematics
 ##lsa was added to the double words file in a separate script
@@ -143,9 +143,10 @@ cbow2  = cbow
 cbow2$index = paste(cbow2$word_2, cbow2$word_1, sep = ".")
 cbow_combined = rbind(cbow, cbow2)
 cbow_combined = cbow_combined[ !duplicated(cbow_combined$index), ]
-####ADD JCN HERE####
+#already dealt with the forward backwards JCN as well as the index for the variable
 
 ####create item data####
+library(expss)
 itemdata = as.data.frame(matrix(NA, nrow = nrow(firstassocLDT)*4, ncol = 33))
 colnames(itemdata) = c("prime", "target", "p.length", "index", "t.length",
                        "p.orthoN", "t.orthoN", "p.freq", "t.freq",
@@ -181,7 +182,7 @@ itemdata$p.css = vlookup(itemdata$prime, cosiness, "Freq", "Var1")
 itemdata$t.css = vlookup(itemdata$target, cosiness, "Freq", "Var1")
 itemdata$p.fss = vlookup(itemdata$prime, cosinefs, "rootset", "cue")
 itemdata$t.fss = vlookup(itemdata$target, cosinefs, "rootset", "cue")
-itemdata$JCN = NA
+itemdata$JCN = vlookup(itemdata$index, jcn, "JCNmaki", "index")
 itemdata$root = vlookup(itemdata$index, cosine_combined, "root", "index")
 itemdata$affix = vlookup(itemdata$index, cosine_combined, "affix", "index")
 itemdata$distance = vlookup(itemdata$index, cbow_combined, "distance", "index")
@@ -215,6 +216,8 @@ itemdata$t.POSr = gsub("mi", "other", itemdata$t.POSr)
 
 #write.csv(itemdata[ , c("prime", "target", "p.POSr", "t.POSr")], "jcn_data.csv", row.names = F)
 
+##here we will need to apply the same basic structure into creating the overall LDT/naming datasets
+
 subjectdataLDT = matrix(NA, nrow(allLDT), ncol = 33)
 
 colnames(subjectdataLDT) = c("prime", "target", "p.length", "t.length",
@@ -238,111 +241,4 @@ colnames(subjectdataN) = c("prime", "target", "p.length", "t.length",
 
 
 
-#convert column names for file since they are the prime word information
-colnames(firstassocLDT)[3:14] = paste("P", colnames(firstassocLDT)[3:14], sep = "")
-colnames(firstassocN)[3:14] = paste("P", colnames(firstassocN)[3:14], sep = "")
-colnames(otherassocLDT)[3:14] = paste("P", colnames(otherassocLDT)[3:14], sep = "")
-colnames(otherassocN)[3:14] = paste("P", colnames(otherassocN)[3:14], sep = "")
 
-
-##add single word information
-FALDT = merge(firstassocLDT, singlewords, by = "TargetWord")
-FAN = merge(firstassocN, targets, by = "TargetWord", all.x = T)
-OALDT = merge(otherassocLDT, targets, by = "TargetWord", all.x = T)
-OAN = merge(otherassocN, targets, by = "TargetWord", all.x = T)
-
-##add in paired information
-#cosine
-FALDT = merge(FALDT, cosine_combined, by = "index", all.x = T)
-FAN = merge(FAN, cosine_combined, by = "index", all.x = T)
-OALDT = merge(OALDT, cosine_combined, by = "index", all.x = T)
-OAN = merge(OAN, cosine_combined, by = "index", all.x = T)
-
-#fix the zeros
-FALDT$root[is.na(FALDT$root)] = 0
-FAN$root[is.na(FAN$root)] = 0
-OALDT$root[is.na(OALDT$root)] = 0
-OAN$root[is.na(OAN$root)] = 0
-
-FALDT$raw[is.na(FALDT$raw)] = 0
-FAN$raw[is.na(FAN$raw)] = 0
-OALDT$raw[is.na(OALDT$raw)] = 0
-OAN$raw[is.na(OAN$raw)] = 0
-
-FALDT$affix[is.na(FALDT$affix)] = 0
-FAN$affix[is.na(FAN$affix)] = 0
-OALDT$affix[is.na(OALDT$affix)] = 0
-OAN$affix[is.na(OAN$affix)] = 0
-
-##cbow
-FALDT = merge(FALDT, cbow_combined, by = "index", all.x = T)
-FAN = merge(FAN, cbow_combined, by = "index", all.x = T)
-OALDT = merge(OALDT, cbow_combined, by = "index", all.x = T)
-OAN = merge(OAN, cbow_combined, by = "index", all.x = T)
-
-##usf
-FALDT = merge(FALDT, usf, by = "index", all.x = T)
-FAN = merge(FAN, usf, by = "index", all.x = T)
-OALDT = merge(OALDT, usf, by = "index", all.x = T)
-OAN = merge(OAN, usf, by = "index", all.x = T)
-
-##maki
-FALDT = merge(FALDT, maki_combined, by = "index", all.x = T)
-FAN = merge(FAN, maki_combined, by = "index", all.x = T)
-OALDT = merge(OALDT, maki_combined, by = "index", all.x = T)
-OAN = merge(OAN, maki_combined, by = "index", all.x = T)
-
-##add cosine set size and feature set size
-
-colnames(cosiness)[2:3] = c("TargetWord", "TCosine_Set")
-colnames(cosinefs)[1:3] = c("TargetWord", "Traw_feat_set", "Troot_feat_set")
-
-FALDT = merge(FALDT, cosiness, by = "TargetWord", all.x = T)
-FAN = merge(FAN, cosiness, by = "TargetWord", all.x = T)
-OALDT = merge(OALDT, cosiness, by = "TargetWord", all.x = T)
-OAN = merge(OAN, cosiness, by = "TargetWord", all.x = T)
-
-FALDT = merge(FALDT, cosinefs, by = "TargetWord", all.x = T)
-FAN = merge(FAN, cosinefs, by = "TargetWord", all.x = T)
-OALDT = merge(OALDT, cosinefs, by = "TargetWord", all.x = T)
-OAN = merge(OAN, cosinefs, by = "TargetWord", all.x = T)
-
-colnames(cosiness)[2:3] = c("Prime", "PCosine_Set")
-colnames(cosinefs)[1:3] = c("Prime", "Praw_feat_set", "Proot_feat_set")
-
-FALDT = merge(FALDT, cosiness, by = "Prime", all.x = T)
-FAN = merge(FAN, cosiness, by = "Prime", all.x = T)
-OALDT = merge(OALDT, cosiness, by = "Prime", all.x = T)
-OAN = merge(OAN, cosiness, by = "Prime", all.x = T)
-
-FALDT = merge(FALDT, cosinefs, by = "Prime", all.x = T)
-FAN = merge(FAN, cosinefs, by = "Prime", all.x = T)
-OALDT = merge(OALDT, cosinefs, by = "Prime", all.x = T)
-OAN = merge(OAN, cosinefs, by = "Prime", all.x = T)
-
-
-write.csv(FAN, "FAN.csv", row.names = F)
-write.csv(FALDT, "FALDT.csv", row.names = F)
-write.csv(OALDT, "OALDT.csv", row.names = F)
-write.csv(OAN, "OAN.csv", row.names = F)
-
-# ###ditched the elp since the data is not one to one
-# colnames(elp)[1] = "TargetWord" 
-# FALDT = merge(FALDT, elp, by = "TargetWord", all.x = T)
-# FAN = merge(FAN, elp, by = "TargetWord", all.x = T)
-# OALDT = merge(OALDT, elp, by = "TargetWord", all.x = T)
-# OAN = merge(OAN, elp, by = "TargetWord", all.x = T)
-# colnames(FALDT)[47:64] = paste("ET", colnames(FALDT)[47:64], sep = "")
-# colnames(FAN)[47:64] = paste("ET", colnames(FAN)[47:64], sep = "")
-# colnames(OALDT)[47:64] = paste("ET", colnames(OALDT)[47:64], sep = "")
-# colnames(OAN)[47:64] = paste("ET", colnames(OAN)[47:64], sep = "")
-# 
-# colnames(elp)[1] = "Prime" 
-# FALDT = merge(FALDT, elp, by = "Prime", all.x = T)
-# FAN = merge(FAN, elp, by = "Prime", all.x = T)
-# OALDT = merge(OALDT, elp, by = "Prime", all.x = T)
-# OAN = merge(OAN, elp, by = "Prime", all.x = T)
-# colnames(FALDT)[65:82] = paste("EP", colnames(FALDT)[65:82], sep = "")
-# colnames(FAN)[65:82] = paste("EP", colnames(FAN)[65:82], sep = "")
-# colnames(OALDT)[65:82] = paste("EP", colnames(OALDT)[65:82], sep = "")
-# colnames(OAN)[65:82] = paste("EP", colnames(OAN)[65:82], sep = "")
