@@ -147,12 +147,12 @@ cbow_combined = cbow_combined[ !duplicated(cbow_combined$index), ]
 
 ####create item data####
 library(expss)
-itemdata = as.data.frame(matrix(NA, nrow = nrow(firstassocLDT)*4, ncol = 33))
+itemdata = as.data.frame(matrix(NA, nrow = nrow(firstassocLDT)*4, ncol = 35))
 colnames(itemdata) = c("prime", "target", "p.length", "index", "t.length",
                        "p.orthoN", "t.orthoN", "p.freq", "t.freq",
                        "p.phonoN", "t.phonoN", "p.POS", "t.POS",
-                       "swowfsg", "fsg", "bsg", "p.fan", "t.fan", "p.css", "t.css",
-                       "p.fss", "t.fss", "JCN", "root", "affix", "distance", "beagle",
+                       "swowfsg", "fsg", "bsg", "p.fsg_ss", "t.fsg_ss", "p.css", "t.css",
+                       "p.fanss", "t.fanss", "p.fss", "t.fss", "JCN", "root", "affix", "distance", "beagle",
                        "LSA", "LSA2", "relation", "task", "SOA200", "SOA1200")
 
 itemdata$task = c(rep("LDT", nrow(firstassocLDT)*2), rep("NAME", nrow(firstassocLDT)*2))
@@ -176,8 +176,8 @@ itemdata$t.POS = vlookup(itemdata$target, singlewords, "POS", "word")
 itemdata$swowfsg = vlookup(itemdata$index, swow, "R123.Strength", "index")
 itemdata$fsg = c(firstassocLDT$FAS, otherassocLDT$FAS, firstassocN$FAS, otherassocN$FAS)
 itemdata$bsg = c(firstassocLDT$BAS, otherassocLDT$BAS, firstassocN$BAS, otherassocN$BAS)
-itemdata$p.fan = vlookup(itemdata$prime, singlewords, "setsize", "word")
-itemdata$t.fan = vlookup(itemdata$target, singlewords, "setsize", "word")
+itemdata$p.fsg_ss = vlookup(itemdata$prime, singlewords, "setsize", "word")
+itemdata$t.fsg_ss = vlookup(itemdata$target, singlewords, "setsize", "word")
 itemdata$p.css = vlookup(itemdata$prime, cosiness, "Freq", "Var1")
 itemdata$t.css = vlookup(itemdata$target, cosiness, "Freq", "Var1")
 itemdata$p.fss = vlookup(itemdata$prime, cosinefs, "rootset", "cue")
@@ -189,6 +189,8 @@ itemdata$distance = vlookup(itemdata$index, cbow_combined, "distance", "index")
 itemdata$LSA = vlookup(itemdata$index, doublewords, "LSA_f.t", "index")
 itemdata$LSA2 = vlookup(itemdata$index, doublewords, "LSA", "index")
 itemdata$beagle = vlookup(itemdata$index, doublewords, "BEAGLE_PMI", "index")
+itemdata$p.fanss = vlookup(itemdata$prime, singlewords, "fanin", "word")
+itemdata$t.fanss = vlookup(itemdata$target, singlewords, "fanin", "word")
 itemdata$SOA200 = c(firstassocLDT$LDT.200ms.Z.Priming, otherassocLDT$LDT.200ms.Z.Priming, 
                     firstassocN$NT.200ms.Z.Priming, otherassocN$NT.200ms.Z.Priming)
 itemdata$SOA1200 = c(firstassocLDT$LDT.1200ms.Z.Priming, otherassocLDT$LDT.1200ms.Z.Priming, 
@@ -197,8 +199,10 @@ itemdata$root[is.na(itemdata$root)] = 0
 itemdata$affix[is.na(itemdata$affix)] = 0
 itemdata$p.phonoN = as.numeric(itemdata$p.phonoN)
 itemdata$t.phonoN = as.numeric(itemdata$t.phonoN)
-itemdata$p.fan = as.numeric(itemdata$p.fan)
-itemdata$t.fan = as.numeric(itemdata$t.fan)
+itemdata$p.fsg_ss = as.numeric(itemdata$p.fsg_ss)
+itemdata$t.fsg_ss = as.numeric(itemdata$t.fsg_ss)
+itemdata$p.fanss = as.numeric(itemdata$p.fanss)
+itemdata$t.fanss = as.numeric(itemdata$t.fanss)
 itemdata$root[itemdata$index == "word.letter"] = 0.229909167
 itemdata$affix[itemdata$affix == "word.letter"] = 0.2655702
 itemdata$p.fss[itemdata$prime == "word"] = 5
