@@ -9,14 +9,14 @@ summary(fa200LDT.1, correlation = T)
 
 fa200LDT.2 = lm(SOA200 ~ p.length + t.length + p.orthoN + t.orthoN + 
                   p.freq + t.freq + p.phonoN + t.phonoN + p.POSr + t.POSr +
-                  fsg + bsg + p.fsg_ss + t.fsg_ss + p.fanss + t.fanss + p.fanss + t.fanss,
+                  fsg + bsg + p.fsg_ss + t.fsg_ss + p.fanss + t.fanss,
                 data = itemdata[itemdata$relation == "first" & itemdata$task == "LDT" , ])
 summary(fa200LDT.2, correlation = T)
 
 fa200LDT.3 = lm(SOA200 ~ p.length + t.length + p.orthoN + t.orthoN + 
                   p.freq + t.freq + p.phonoN + t.phonoN + p.POSr + t.POSr +
-                  fsg + bsg + p.fsg_ss + t.fsg_ss + p.fanss + t.fanss + p.css + t.css + p.fss + t.fss +
-                  root + affix,
+                  fsg + bsg + p.fsg_ss + t.fsg_ss + p.fanss + t.fanss + 
+                  p.css + t.css + p.fss + t.fss + root + affix,
                 data = itemdata[itemdata$relation == "first" & itemdata$task == "LDT" , ])
 summary(fa200LDT.3, correlation = T)
 
