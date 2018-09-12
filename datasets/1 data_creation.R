@@ -12,7 +12,7 @@ otherassocN = read.csv("other_assoc_relatedN.csv")
 allLDT = read.csv("all ldt subs_all trials3.csv")
 allname = read_excel("all naming subjects.xlsx")
 
-##first associate is 1, other associate is 2 in the primecond
+##first associate is 1, other associate is 2 ian the primecond
 allLDT = subset(allLDT, rel == "rel")
 allname = subset(allname, primecond == 1 | primecond == 2)
 
@@ -27,7 +27,7 @@ singlewords = read_excel("single_word_spp.xlsx")
 #doublewords = read_excel("double_word_spp.xlsx")
 doublewords = read.csv("doublewords.csv")
 ##SWOW
-swow = read.delim("strength.SWOW-EN.R123.csv")
+swow = read.csv("strength.SWOW-EN.R123.csv")
 
 ##semantics
 cosine_data = read.table("all averaged cosine.txt", quote= "\"", comment.char = "")
@@ -145,6 +145,10 @@ cbow_combined = rbind(cbow, cbow2)
 cbow_combined = cbow_combined[ !duplicated(cbow_combined$index), ]
 #already dealt with the forward backwards JCN as well as the index for the variable
 
+##create swow statistics
+swowfsgss = as.data.frame(table(swow$cue))
+swowfanss = as.data.frame(table(swow$response))
+
 ####create item data####
 library(expss)
 itemdata = as.data.frame(matrix(NA, nrow = nrow(firstassocLDT)*4, ncol = 35))
@@ -174,6 +178,10 @@ itemdata$t.freq = vlookup(itemdata$target, singlewords, "log_subtlex", "word")
 itemdata$p.POS = vlookup(itemdata$prime, singlewords, "POS", "word")
 itemdata$t.POS = vlookup(itemdata$target, singlewords, "POS", "word")
 itemdata$swowfsg = vlookup(itemdata$index, swow, "R123.Strength", "index")
+itemdata$swow.t.fsg_ss = vlookup(itemdata$target, swowfsgss, "Freq", "Var1")
+itemdata$swow.f.fsg_ss = vlookup(itemdata$prime, swowfsgss, "Freq", "Var1")
+itemdata$swow.t.fan_ss = vlookup(itemdata$target, swowfanss, "Freq", "Var1")
+itemdata$swow.f.fan_ss = vlookup(itemdata$prime, swowfanss, "Freq", "Var1")
 itemdata$fsg = c(firstassocLDT$FAS, otherassocLDT$FAS, firstassocN$FAS, otherassocN$FAS)
 itemdata$bsg = c(firstassocLDT$BAS, otherassocLDT$BAS, firstassocN$BAS, otherassocN$BAS)
 itemdata$p.fsg_ss = vlookup(itemdata$prime, singlewords, "setsize", "word")
@@ -189,8 +197,8 @@ itemdata$distance = vlookup(itemdata$index, cbow_combined, "distance", "index")
 itemdata$LSA = vlookup(itemdata$index, doublewords, "LSA_f.t", "index")
 itemdata$LSA2 = vlookup(itemdata$index, doublewords, "LSA", "index")
 itemdata$beagle = vlookup(itemdata$index, doublewords, "BEAGLE_PMI", "index")
-itemdata$p.fanss = vlookup(itemdata$prime, singlewords, "fanin", "word")
-itemdata$t.fanss = vlookup(itemdata$target, singlewords, "fanin", "word")
+itemdata$p.fan_ss = vlookup(itemdata$prime, singlewords, "fanin", "word")
+itemdata$t.fan_ss = vlookup(itemdata$target, singlewords, "fanin", "word")
 itemdata$SOA200 = c(firstassocLDT$LDT.200ms.Z.Priming, otherassocLDT$LDT.200ms.Z.Priming, 
                     firstassocN$NT.200ms.Z.Priming, otherassocN$NT.200ms.Z.Priming)
 itemdata$SOA1200 = c(firstassocLDT$LDT.1200ms.Z.Priming, otherassocLDT$LDT.1200ms.Z.Priming, 
@@ -220,27 +228,17 @@ itemdata$t.POSr = gsub("mi", "other", itemdata$t.POSr)
 
 #write.csv(itemdata[ , c("prime", "target", "p.POSr", "t.POSr")], "jcn_data.csv", row.names = F)
 write.csv(itemdata, "itemdata.csv", row.names = F)
+
+####make subject level data here####
 ##here we will need to apply the same basic structure into creating the overall LDT/naming datasets
 
-subjectdataLDT = matrix(NA, nrow(allLDT), ncol = 33)
+subjectdataLDT = matrix(NA, nrow(allLDT), ncol = ncol(itemdata))
 
-colnames(subjectdataLDT) = c("prime", "target", "p.length", "t.length",
-                       "p.orthoN", "t.orthoN", "p.freq", "t.freq",
-                       "p.phonoN", "t.phonoN", "p.POS", "t.POS",
-                       "swowfsg", "swowbsg", "p.fan", "t.fan", "p.css", "t.css",
-                       "p.fss", "t.fss", "JCN", "root", "affix", "distance", "beagle", 
-                       "LSA", "relation", "SOA", "ACC", "RT", "ZRT",
-                       "subject", "trial")
+colnames(subjectdataLDT) = colnames(itemdata)
 
-subjectdataN = matrix(NA, nrow(allname), ncol = 33)
+subjectdataN = matrix(NA, nrow(allname), ncol = ncol(itemdata))
 
-colnames(subjectdataN) = c("prime", "target", "p.length", "t.length",
-                             "p.orthoN", "t.orthoN", "p.freq", "t.freq",
-                             "p.phonoN", "t.phonoN", "p.POS", "t.POS",
-                             "swowfsg", "swowbsg", "p.fan", "t.fan", "p.css", "t.css",
-                             "p.fss", "t.fss", "JCN", "root", "affix", "distance", "beagle",
-                             "LSA", "relation", "SOA", "ACC", "RT", 
-                             "subject", "trial")
+colnames(subjectdataN) = colnames(itemdata)
 
 
 
