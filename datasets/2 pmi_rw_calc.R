@@ -78,6 +78,16 @@ swow$index = paste(swow$cue, swow$response, sep = ".")
 swow = swow[swow$R123 > 1 , ]
 swow = swow[ , c("cue", "response", "R123.Strength")]
 
+#testing to see what the duplicates are
+swow$dupe=duplicated(swow)
+swow.dupe=swow[swow$dupe=="TRUE",]
+View(swow.dupe)
+new.swow=merge(swow.dupe, swow, by=c("cue", "response"))
+#this shows that all duplicates are identical when it comes to R123.Strength, so we can just remove duplicates
+swow=swow[swow$dupe=="FALSE",]
+swow = swow[ , c("cue", "response", "R123.Strength")]
+
+
 #fix into wide dataset
 wideswow = dcast(swow, cue ~ response, value.var = "R123.Strength")
 rownames(wideswow) = wideswow$cue #set up row names
