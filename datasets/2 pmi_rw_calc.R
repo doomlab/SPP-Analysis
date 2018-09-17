@@ -87,7 +87,6 @@ new.swow=merge(swow.dupe, swow, by=c("cue", "response"))
 swow=swow[swow$dupe=="FALSE",]
 swow = swow[ , c("cue", "response", "R123.Strength")]
 
-
 #fix into wide dataset
 wideswow = dcast(swow, cue ~ response, value.var = "R123.Strength")
 rownames(wideswow) = wideswow$cue #set up row names
