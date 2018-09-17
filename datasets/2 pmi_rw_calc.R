@@ -64,6 +64,16 @@ pmi_matrix2$index = apply( pmi_matrix2[ , 1:2 ] , 1 , paste , collapse = ".")
 itemdata$pmi_cosine = vlookup(itemdata$index, pmi_matrix2, "Freq", "index")
 
 #drop full_cosine and full_cosine2
+itemdata = itemdata[ , -c(41,42)]
+itemdata$full_cos_final[is.na(itemdata$full_cos_final)] = 0
+
+#fill in word letter NA values
+View(rw_matrix2[rw_matrix2$Var1 == "words", ])
+itemdata$rw_cosine[is.na(itemdata$rw_cosine)] = -0.006338416	#words.letter
+
+View(pmi_matrix2[pmi_matrix2$Var1 == "words", ])
+itemdata$pmi_cosine[is.na(itemdata$pmi_cosine)] = 
+
 
 # create pmi and rw for association ---------------------------------------
 
