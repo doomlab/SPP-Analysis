@@ -4,6 +4,9 @@ setwd("~/OneDrive - Missouri State University/RESEARCH/2 projects/SPP-Analysis/d
 ##open the item data to add to 
 itemdata = read.csv("itemdata.csv")
 
+
+# Calculate pmi and rw for cosine -----------------------------------------
+
 ##pull in the cosine information
 alldata = read.table("all averaged cosine.txt", quote = "\"", comment.char = "")
 colnames(alldata) = c("cue", "target", "root", "raw", "affix", "old")
@@ -68,11 +71,11 @@ itemdata = itemdata[ , -c(41,42)]
 itemdata$full_cos_final[is.na(itemdata$full_cos_final)] = 0
 
 #fill in word letter NA values
-View(rw_matrix2[rw_matrix2$Var1 == "words", ])
+View(rw_matrix2[rw_matrix2$Var1 == "words" & rw_matrix2$Var2 == "letter", ])
 itemdata$rw_cosine[is.na(itemdata$rw_cosine)] = -0.006338416	#words.letter
 
-View(pmi_matrix2[pmi_matrix2$Var1 == "words", ])
-itemdata$pmi_cosine[is.na(itemdata$pmi_cosine)] = 
+View(pmi_matrix2[pmi_matrix2$Var1 == "words" & pmi_matrix2$Var2 == "letter", ])
+itemdata$pmi_cosine[is.na(itemdata$pmi_cosine)] = 0
 
 
 # create pmi and rw for association ---------------------------------------
@@ -85,20 +88,33 @@ swow$response = gsub(" ", "", swow$response)
 swow$cue = gsub("'", "", swow$cue)
 swow$response = gsub("'", "", swow$response)
 swow$index = paste(swow$cue, swow$response, sep = ".")
-swow = swow[swow$R123 > 1 , ]
+#swow = swow[swow$R123 > 3 , ]
 swow = swow[ , c("cue", "response", "R123.Strength")]
 
-#testing to see what the duplicates are
-swow$dupe=duplicated(swow)
-swow.dupe=swow[swow$dupe=="TRUE",]
-View(swow.dupe)
-new.swow=merge(swow.dupe, swow, by=c("cue", "response"))
-#this shows that all duplicates are identical when it comes to R123.Strength, so we can just remove duplicates
-swow=swow[swow$dupe=="FALSE",]
-swow = swow[ , c("cue", "response", "R123.Strength")]
+#calculate pmi
+#log p(target | cue) / p(target)
+#we have p(target | cue) with R123.strength
 
+#figure out p(target)
+ptarget = as.data.frame(table(swow$cue))
+ptarget$prob = ptarget$Freq / sum(ptarget$Freq)
+colnames(ptarget)[1] = "cue"
+swow = merge(swow, ptarget, "cue")
+
+swow$pmi.info = log2(swow$R123.Strength / swow$prob)
+
+library(expss)
+swow$index = paste(swow$cue, swow$response, sep = ".")
+itemdata$pmi_swow = vlookup(itemdata$index, swow, "pmi.info", "index")
+
+
+# Not used do to computational limits -------------------------------------
+
+#everything below here would be great if I had the computing power to run it
 #fix into wide dataset
-wideswow = dcast(swow, cue ~ response, value.var = "R123.Strength")
+wideswow = dcast(swow, cue ~ response, 
+                 value.var = "R123.Strength",
+                 fun.aggregate = mean)
 rownames(wideswow) = wideswow$cue #set up row names
 wideswow = wideswow[ , -1] #drop cue column 
 wideswow[is.na(wideswow)] = 0 #fix all connections to zero
