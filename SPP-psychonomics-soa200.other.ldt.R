@@ -153,39 +153,39 @@ summary(model.3.2a.c)
 #4th-thematics; association and semantic relationships take together.
 #distance, LSA, beagle
 #IF model 3a.c won above, use this model
-model.3.2a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+model.4a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                   swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                   p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
                 data=spp.data.other.ldt)
-summary(model.3.2a.c)
+summary(model.4a.c)
 #sign are int, t.freq, t.phonoN, t.css, LSA, beagal
 #R^2=0.06296
 
 #IF model 3a.d won above, use this model
-#model.3.2a.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+#model.4a.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
 #                  swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_sss+pmi_cosine+
 #                  p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
 #                data=spp.data.other.ldt)
 
 #IF model 3b.c won above, use this model
-#model.3.2b.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+#model.4b.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
 #                  pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
 #                  p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
 #                data=spp.data.other.ldt)
 
 #IF model 3b.d won above, use this model
-#model.3.2b.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+#model.4b.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
 #                  pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine+
 #                  p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
 #                data=spp.data.other.ldt)
 #IF model 3c.c won above, use this model
-#model.3.2c.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+#model.4c.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
 #                  pmi_swow+swowofsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
 #                  p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
 #                data=spp.data.other.ldt)
 
 #IF model 3c.d won above, use this model
-#model.3.2c.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+#model.4c.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
 #                  pmi_swow+swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine+
 #                  p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
 #                data=spp.data.other.ldt)
