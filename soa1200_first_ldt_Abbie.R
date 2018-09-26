@@ -1,4 +1,6 @@
-spp.data = read.csv("~/Documents/GitHub/SPP-Analysis/itemdata.csv")
+#fancy code to set the working directory to the current folder
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+spp.data=read.csv("itemdata.csv")
 
 spp.data.other=spp.data[spp.data$relation=="other",] #this keeps only rows where relation=other and keeps all columns
 spp.data.other.ldt=spp.data.other[spp.data.other$task=="LDT",] #this keeps only rows where task=LDT and keeps all columns

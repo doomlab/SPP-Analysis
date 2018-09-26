@@ -1,4 +1,4 @@
-#given prime type= other , task type= LDT , and DV=SOA200
+#given prime type = first , task type = name , and DV = SOA1200
 #fancy code to set the working directory to the current folder
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 spp.data=read.csv("itemdata.csv") 
