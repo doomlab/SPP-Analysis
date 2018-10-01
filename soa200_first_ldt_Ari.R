@@ -92,8 +92,9 @@ model.3a.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+
 summary(model.3a.c)
 summary(model.3a.d)
 
-#model.3a.c sign are t.freq, intc, t.phonoN, full_cos_final, R2=0.04279
-#model .d sing are intc, t.freq, t.phonoN, R2= 0.04051
+#model.3a.c sign are p.freq, t.freq, t.orthoN, swow.t.fsg_ss, swow.t.fan_ss, full_cos_final,
+#R2=.08554
+#model.3a.d sign are p.freq, t.freq, t.orthoN, swow.t.fsg_ss, swow.t.fan_ss, R2= 0.08268
 #again, both models tie, so we will keep full_cos_final
 
 #IF model pmi_swow won above, use these two models
@@ -120,8 +121,8 @@ model.3.2a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phono
                 p.css+t.css+p.fss+t.fss, 
               data=spp.data.first.ldt)
 summary(model.3.2a.c)
-#sign are intc, t.freq, t.phonoN, full_cos_final, t.css
-#r2=0.05101
+#sign are p.freq, t.freq, t.orthoN, swow.t.fsg_ss, swow.t.fan_ss, full_cos_final
+#r2=.08605
 
 #IF model 3a.d won above, use this model
 #model.3.2a.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -160,8 +161,8 @@ model.4a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+
                   p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
                 data=spp.data.first.ldt)
 summary(model.4a.c)
-#sign are int, t.freq, t.phonoN, t.css, LSA, beagal
-#R^2=0.06296
+#sign are t.freq, t.orthoN, swow.t.fsg_ss, swow.t.fan_ss, beagle, (distance at p<0.1)
+#R^2=.09744
 
 #IF model 3a.d won above, use this model
 #model.4a.d=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
