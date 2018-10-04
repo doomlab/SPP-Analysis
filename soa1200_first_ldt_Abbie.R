@@ -2,15 +2,15 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 spp.data=read.csv("itemdata.csv")
 
-spp.data.other=spp.data[spp.data$relation=="other",] #this keeps only rows where relation=other and keeps all columns
-spp.data.other.ldt=spp.data.other[spp.data.other$task=="LDT",] #this keeps only rows where task=LDT and keeps all columns
+spp.data.first=spp.data[spp.data$relation=="first",] #this keeps only rows where relation=other and keeps all columns
+spp.data.first.ldt=spp.data.first[spp.data.first$task=="LDT",] #this keeps only rows where task=LDT and keeps all columns
 
 
 # Step One --------------------------------------------------------------
 
 #our first step is to use these lexical variables to predict our DV
 model.1=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr, 
-           data=spp.data.other.ldt) 
+           data=spp.data.first.ldt) 
 summary(model.1)
 
 
@@ -24,20 +24,20 @@ summary(model.1)
 
 #2a swowfsg added now
 model.2a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+swowfsg, 
-            data=spp.data.other.ldt)
+            data=spp.data.first.ldt)
 summary(model.2a)
 ##Multiple R^2=0.032
 
 #2b pmi_swow added now
 model.2b=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+pmi_swow, 
-            data=spp.data.other.ldt)
+            data=spp.data.first.ldt)
 summary(model.2b)
 ###gives us sign. pred for pmi_swow, t.phonoN, t.freq, and int
 ###Multiple R^2=0.034
 
 #2c swowfsg and pmi_swow together
 model.2c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+swowfsg+pmi_swow, 
-            data=spp.data.other.ldt)
+            data=spp.data.first.ldt)
 summary(model.2c)
 ###gives us sing for t.phonoN, t.freq, int
 ###Multiple R^2=0.034
@@ -53,7 +53,7 @@ summary(model.2c)
 #IF swowfsg is the better predictor, OR all models equal, use this model
 model.2.2a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss, 
-              data=spp.data.other.ldt)
+              data=spp.data.first.ldt)
 summary(model.2.2a)
 ###gives us sign for int, t.freq, t.phonoN, swowfsg, swow.t.fan_ss
 ##R2=0.035
@@ -64,10 +64,10 @@ summary(model.2.2a)
 #IF model swowfsg won above, OR  models tied, use these two models
 model.3a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final, 
-              data=spp.data.other.ldt)
+              data=spp.data.first.ldt)
 model.3a.d=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine, 
-              data=spp.data.other.ldt)
+              data=spp.data.first.ldt)
 summary(model.3a.c) #R2 = .037
 summary(model.3a.d) #R2 = .035
 #Not really sure if these are that different?
@@ -77,7 +77,7 @@ summary(model.3a.d) #R2 = .035
 model.3.2a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                   swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                   p.css+t.css+p.fss+t.fss, 
-                data=spp.data.other.ldt)
+                data=spp.data.first.ldt)
 summary(model.3.2a.c)
 #sign are intc, t.freq, t.phonoN, full_cos_final, t.css
 #r2=0.038
@@ -91,7 +91,7 @@ summary(model.3.2a.c)
 model.4a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                 p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
-              data=spp.data.other.ldt)
+              data=spp.data.first.ldt)
 summary(model.4a.c)
 #sign are int, t.freq, t.phonoN, t.css, LSA, beagal
 #R^2=0.06296
