@@ -1,6 +1,6 @@
 #given prime type= other, task type= name, and DV=SOA1200
 #fancy code to set the working directory to the current folder
-setwd("~/GitHub/SPP-Analysis")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 spp.data=read.csv("itemdata.csv")
 
 #next, we need to split the data up so that we are only analyzing for our prime and task type
