@@ -9,8 +9,8 @@ firstassocLDT = read.csv("assoc_relatedLDT.csv")
 firstassocN = read.csv("assoc_relatedN.csv")
 otherassocLDT = read.csv("other_assoc_relatedLDT.csv")
 otherassocN = read.csv("other_assoc_relatedN.csv")
-allLDT = read.csv("all ldt subs_all trials3.csv")
-allname = read_excel("all naming subjects.xlsx")
+#allLDT = read.csv("all ldt subs_all trials3.csv")
+#allname = read_excel("all naming subjects.xlsx")
 
 ##first associate is 1, other associate is 2 ian the primecond
 allLDT = subset(allLDT, rel == "rel")
@@ -232,14 +232,93 @@ write.csv(itemdata, "itemdata.csv", row.names = F)
 ####make subject level data here####
 ##here we will need to apply the same basic structure into creating the overall LDT/naming datasets
 
-subjectdataLDT = matrix(NA, nrow(allLDT), ncol = ncol(itemdata))
+#pull in completed item data
+itemdata = read.csv("../itemdata.csv")
 
+#read in the participant files
+library(readxl)
+allLDT = read.csv("all ldt subs_all trials3.csv")
+allname = read_excel("all naming subjects.xlsx")
+
+#create file structure
+subjectdataLDT = matrix(NA, nrow(allLDT), ncol = ncol(itemdata))
 colnames(subjectdataLDT) = colnames(itemdata)
+subjectdataLDT = cbind(allLDT, subjectdataLDT[ , -c(1:4)])
 
 subjectdataN = matrix(NA, nrow(allname), ncol = ncol(itemdata))
-
 colnames(subjectdataN) = colnames(itemdata)
+subjectdataN = cbind(allname, subjectdataN[ , -c(1:4)])
 
+#now merge with other information we are using
+library(expss)
+subjectdataLDT$prime = tolower(as.character(subjectdataLDT$prime))
+subjectdataLDT$index = paste(subjectdataLDT$prime, subjectdataLDT$target, sep = ".")
+subjectdataLDT$p.length = vlookup(subjectdataLDT$prime, itemdata, "p.length", "prime")
+subjectdataLDT$t.length = vlookup(subjectdataLDT$target, itemdata, "t.length", "target")
+
+
+##keep going editing these - figure out how to analyze this nonsense. 
+subjectdataLDT$p.orthoN = vlookup(subjectdataLDT$prime, itemdata, "orthoN", "word")
+subjectdataLDT$t.orthoN = vlookup(subjectdataLDT$target, itemdata, "orthoN", "word")
+subjectdataLDT$p.phonoN = vlookup(subjectdataLDT$prime, itemdata, "phonoN", "word")
+subjectdataLDT$t.phonoN = vlookup(subjectdataLDT$target, itemdata, "phonoN", "word")
+subjectdataLDT$p.freq = vlookup(subjectdataLDT$prime, itemdata, "log_subtlex", "word")
+subjectdataLDT$t.freq = vlookup(subjectdataLDT$target, itemdata, "log_subtlex", "word")
+subjectdataLDT$p.POS = vlookup(subjectdataLDT$prime, itemdata, "POS", "word")
+subjectdataLDT$t.POS = vlookup(subjectdataLDT$target, itemdata, "POS", "word")
+subjectdataLDT$swowfsg = vlookup(subjectdataLDT$index, swow, "R123.Strength", "index")
+subjectdataLDT$swow.t.fsg_ss = vlookup(subjectdataLDT$target, swowfsgss, "Freq", "Var1")
+subjectdataLDT$swow.p.fsg_ss = vlookup(subjectdataLDT$prime, swowfsgss, "Freq", "Var1")
+subjectdataLDT$swow.t.fan_ss = vlookup(subjectdataLDT$target, swowfanss, "Freq", "Var1")
+subjectdataLDT$swow.p.fan_ss = vlookup(subjectdataLDT$prime, swowfanss, "Freq", "Var1")
+subjectdataLDT$fsg = c(firstassocLDT$FAS, otherassocLDT$FAS, firstassocN$FAS, otherassocN$FAS)
+subjectdataLDT$bsg = c(firstassocLDT$BAS, otherassocLDT$BAS, firstassocN$BAS, otherassocN$BAS)
+subjectdataLDT$p.fsg_ss = vlookup(subjectdataLDT$prime, singlewords, "setsize", "word")
+subjectdataLDT$t.fsg_ss = vlookup(subjectdataLDT$target, singlewords, "setsize", "word")
+subjectdataLDT$p.css = vlookup(subjectdataLDT$prime, cosiness, "Freq", "Var1")
+subjectdataLDT$t.css = vlookup(subjectdataLDT$target, cosiness, "Freq", "Var1")
+subjectdataLDT$p.fss = vlookup(subjectdataLDT$prime, cosinefs, "rootset", "cue")
+subjectdataLDT$t.fss = vlookup(subjectdataLDT$target, cosinefs, "rootset", "cue")
+subjectdataLDT$JCN = vlookup(subjectdataLDT$index, jcn, "JCNmaki", "index")
+subjectdataLDT$root = vlookup(subjectdataLDT$index, cosine_combined, "root", "index")
+subjectdataLDT$affix = vlookup(subjectdataLDT$index, cosine_combined, "affix", "index")
+subjectdataLDT$distance = vlookup(subjectdataLDT$index, cbow_combined, "distance", "index")
+subjectdataLDT$LSA = vlookup(subjectdataLDT$index, doublewords, "LSA_f.t", "index")
+subjectdataLDT$LSA2 = vlookup(subjectdataLDT$index, doublewords, "LSA", "index")
+subjectdataLDT$beagle = vlookup(subjectdataLDT$index, doublewords, "BEAGLE_PMI", "index")
+subjectdataLDT$p.fan_ss = vlookup(subjectdataLDT$prime, singlewords, "fanin", "word")
+subjectdataLDT$t.fan_ss = vlookup(subjectdataLDT$target, singlewords, "fanin", "word")
+subjectdataLDT$SOA200 = c(firstassocLDT$LDT.200ms.Z.Priming, otherassocLDT$LDT.200ms.Z.Priming, 
+                    firstassocN$NT.200ms.Z.Priming, otherassocN$NT.200ms.Z.Priming)
+subjectdataLDT$SOA1200 = c(firstassocLDT$LDT.1200ms.Z.Priming, otherassocLDT$LDT.1200ms.Z.Priming, 
+                     firstassocN$NT.1200ms.Z.Priming, otherassocN$NT.1200ms.Z.Priming)
+subjectdataLDT$root[is.na(subjectdataLDT$root)] = 0
+subjectdataLDT$affix[is.na(subjectdataLDT$affix)] = 0
+subjectdataLDT$p.phonoN = as.numeric(subjectdataLDT$p.phonoN)
+subjectdataLDT$t.phonoN = as.numeric(subjectdataLDT$t.phonoN)
+subjectdataLDT$p.fsg_ss = as.numeric(subjectdataLDT$p.fsg_ss)
+subjectdataLDT$t.fsg_ss = as.numeric(subjectdataLDT$t.fsg_ss)
+subjectdataLDT$p.fan_ss = as.numeric(subjectdataLDT$p.fan_ss)
+subjectdataLDT$t.fan_ss = as.numeric(subjectdataLDT$t.fan_ss)
+
+##deal with spelling stuff
+subjectdataLDT$root[subjectdataLDT$index == "word.letter"] = 0.229909167
+subjectdataLDT$affix[subjectdataLDT$affix == "word.letter"] = 0.2655702
+subjectdataLDT$p.fss[subjectdataLDT$prime == "word"] = 5
+subjectdataLDT$p.css[subjectdataLDT$prime == "word"] = 75
+
+#hatchet - ax
+#wed - thursday
+
+##clean up part of speech
+subjectdataLDT$p.POSr = substr(subjectdataLDT$p.POS, 0, 2)
+subjectdataLDT$t.POSr = substr(subjectdataLDT$t.POS, 0, 2)
+subjectdataLDT$p.POSr = gsub("JJ", "other", subjectdataLDT$p.POSr)
+subjectdataLDT$p.POSr = gsub("RB", "other", subjectdataLDT$p.POSr)
+subjectdataLDT$p.POSr = gsub("mi", "other", subjectdataLDT$p.POSr)
+subjectdataLDT$t.POSr = gsub("JJ", "other", subjectdataLDT$t.POSr)
+subjectdataLDT$t.POSr = gsub("RB", "other", subjectdataLDT$t.POSr)
+subjectdataLDT$t.POSr = gsub("mi", "other", subjectdataLDT$t.POSr)
 
 
 
