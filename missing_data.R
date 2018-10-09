@@ -40,6 +40,7 @@ master$prime[is.na(master$swow.p.fsg_ss)]
 master$index[is.na(master$pmi_swow)]
 
 #add ax
+#in general if the prime is in the SWOW data, then the relationship is zero if target is not
 
 # swow fan ----------------------------------------------------------------
 
