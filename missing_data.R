@@ -11,49 +11,52 @@ summary(master)
 
 #length we can fill in with a count character thing
 master$prime[is.na(master$p.length)]
-
+master$p.length = nchar(as.character(master$prime))
 
 # orthoN ------------------------------------------------------------------
 
 master$prime[is.na(master$p.orthoN)]
 master$target[is.na(master$t.orthoN)]
 
-
 # phonoN ------------------------------------------------------------------
-master$target[is.na(master$p.phonoN)]
+master$prime[is.na(master$p.phonoN)]
 master$target[is.na(master$t.phonoN)]
-
 
 # freq --------------------------------------------------------------------
 
-master$target[is.na(master$p.freq)]
+master$prime[is.na(master$p.freq)]
 master$target[is.na(master$t.freq)]
 
+#http://subtlexus.lexique.org/moteur2/index.php
+#Lg10WF
+
+master$p.freq[master$prime == "hyper"] = 1.6628	
 
 # swow fsg and pmi ----------------------------------------------------------------
 
 master$index[is.na(master$swowfsg)]
-master$index[is.na(master$swow.t.fsg_ss)]
-master$index[is.na(master$swow.p.fsg_ss)]
+master$target[is.na(master$swow.t.fsg_ss)]
+master$prime[is.na(master$swow.p.fsg_ss)]
 master$index[is.na(master$pmi_swow)]
 
+#add ax
 
 # swow fan ----------------------------------------------------------------
 
-master$index[is.na(master$swow.t.fan_ss)]
-master$index[is.na(master$swow.p.fan_ss)]
-
+master$target[is.na(master$swow.t.fan_ss)]
+master$prime[is.na(master$swow.p.fan_ss)]
 
 # fan_ss ------------------------------------------------------------------
 
-master$index[is.na(master$p.fan_ss)]
-
+master$prime[is.na(master$p.fan_ss)]
 
 # POSr --------------------------------------------------------------------
 
-master$index[is.na(master$p.POSr)]
-master$index[is.na(master$t.POSr)]
+master$prime[is.na(master$p.POSr)]
+master$target[is.na(master$t.POSr)]
 
-#dont: POS, anything fsg/bsg that doesn't say swow, JCN, root, affix, LSA, LSA2, SOA
+table(master$p.POSr)
 
-#do POSr
+master$p.POSr[master$prime == "hyper"] = "other" #adj
+
+
