@@ -95,8 +95,8 @@ summary(model.3a.c)
 
 #model.3a.a sign are t.freq, intc, t.phonoN, full_cos_final, r2=0.04279
 #model .b sing are intc, t.freq, t.phonoN, R2= 0.04051
-#model .c 0.04282
-#again, both models tie, so we will keep full_cos_final
+#model .c sign t.freq, intc, t.phonoN 0.04282
+#again, all models tie, so we will keep full_cos_final
 
 #IF model pmi_swow won above, use these two models
 #model.3b.a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+

@@ -1,8 +1,6 @@
 #given prime type= other , task type= LDT , and DV=SOA200
-#bring in data from github
-#install.packages("readr") #install pacakge that lets us read in the .csv file
-library(readr) #call up that package
-spp.data=read.csv("C:/Users/ac924/Documents/GitHub/SPP-Analysis/itemdata.csv") #bring in data--you will need to change this path name
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+spp.data=read.csv("itemdata.csv") 
 
 #next, we need to split the data up so that we are only analyzing for our prime and task type
 #we have prime type FIRST
