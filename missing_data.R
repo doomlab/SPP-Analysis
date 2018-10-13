@@ -31,11 +31,70 @@ master$target[is.na(master$t.freq)]
 #Lg10WF
 
 #p.freq
-master$p.freq[master$prime == "hyper"] = 1.6628	
-
+master$p.freq[master$prime == "hyper"] = 1.6628
+master$p.freq[master$prime == "usa"] = 2.3096
+master$p.freq[master$prime == "clorox"] = NA
+master$p.freq[master$prime == "recliner"] = 0.8451
+master$p.freq[master$prime == "juggler"] = 1.3979
+master$p.freq[master$prime == "saltine"] = 1.0414
+master$p.freq[master$prime == "crayola"] = NA
+master$p.freq[master$prime == "bandaid"] = NA
+master$p.freq[master$prime == "antlers"] = 1.6721
+master$p.freq[master$prime == "sinker"] = 1.4624
+master$p.freq[master$prime == "nerd"] = 2.2279
+master$p.freq[master$prime == "demi"] = 1.3222
+master$p.freq[master$prime == "mcdonalds"] = NA
+master$p.freq[master$prime == "frill"] = 0.301
+master$p.freq[master$prime == "pissed"] = 3.1143
+master$p.freq[master$prime == "frankenstein"] = 2.549
+master$p.freq[master$prime == "axon"] = 0.4771
+master$p.freq[master$prime == "aright"] = 1.2553
+master$p.freq[master$prime == "zit"] = 1.7243
+master$p.freq[master$prime == "tupperware"] = NA
+master$p.freq[master$prime == "uncooked"] = 0.7782
+master$p.freq[master$prime == "shears"] = 1.6902
+master$p.freq[master$prime == "typist"] = 1.6335
+master$p.freq[master$prime == "escargot"] = 1.2041
+master$p.freq[master$prime == "popeye"] = 1.9085
+master$p.freq[master$prime == "hairspray"] = 1.5911
+master$p.freq[master$prime == "pancakes"] = 2.6928
+master$p.freq[master$prime == "breezeway"] = 0.4771
+master$p.freq[master$prime == "cornbeef"] = NA
+master$p.freq[master$prime == "britannica"] = NA
+master$p.freq[master$prime == "anisette"] = 0.4771
+master$p.freq[master$prime == "lightheaded"] = 1.4624
+master$p.freq[master$prime == "fairytale"] = NA
+master$p.freq[master$prime == "dracula"] = NA
+master$p.freq[master$prime == "mints"] = 1.9138
+master$p.freq[master$prime == "excedrin"] = NA
+master$p.freq[master$prime == "harley"] = NA
+master$p.freq[master$prime == "walkway"] = 	1.301
+master$p.freq[master$prime == "overview"] = 1.3617
+master$p.freq[master$prime == "seatbelt"] = 1.6812
+master$p.freq[master$prime == "bookbag"] = NA
+master$p.freq[master$prime == "checkers"] = 1.9868
+master$p.freq[master$prime == "chromosomes"] = 1.6435
+master$p.freq[master$prime == "bagel"] = 2.1959
+master$p.freq[master$prime == "paperclip"] = 0.4771
+master$p.freq[master$prime == "yummy"] = 2.3598
+master$p.freq[master$prime == "chalkboard"] = 1.1139
 
 #t.freq
-#master$t.freq[master$target == "hyper"] = __
+master$t.freq[master$target == "cant"] = 2.0792
+master$t.freq[master$target == "conceited"] = 1.9777
+master$t.freq[master$target == "dont"] = 2.4249
+master$t.freq[master$target == "frankenstein"] = 2.549
+master$t.freq[master$target == "geek"] = 2.549
+master$t.freq[master$target == "klutz"] = 1.6812
+master$t.freq[master$target == "noodles"] = 2.4914
+master$t.freq[master$target == "pancakes"] = 2.6928
+master$t.freq[master$target == "pepsi"] = 1.9777
+master$t.freq[master$target == "seatbelt"] = 1.6812
+master$t.freq[master$target == "tupperware"] = NA
+master$t.freq[master$target == "usa"] = 2.3096
+master$t.freq[master$target == "walkway"] = 1.301
+master$t.freq[master$target == "wimp"] = 2.2041
+master$t.freq[master$target == "zit"] = 1.7243
 
 
 # swow fsg and pmi ----------------------------------------------------------------
