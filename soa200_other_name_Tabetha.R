@@ -32,7 +32,7 @@ model.2a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
            data=spp.data.other.name)
 summary(model.2a)
 ###gives us sign pred for swowfsg, t.phonoN, t.freq and intcpt
-###Multiple R^2=0.035
+###Multiple R^2=0.02574
 
 #2b pmi_swow added now
 model.2b=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+
@@ -40,14 +40,14 @@ model.2b=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+
            data=spp.data.other.name)
 summary(model.2b)
 ###gives us sign. pred for pmi_swow, t.phonoN, t.freq, and int
-###Multiple R^2=0.03478
+###Multiple R^2=0.0257
 
 #2c swowfsg and pmi_swow together
 model.2c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+swowfsg+pmi_swow, 
             data=spp.data.other.name)
 summary(model.2c)
 ###gives us sing for t.phonoN, t.freq, int
-###Multiple R^2=0.03512
+###Multiple R^2=0.02574
 #compare r^2
 #now compare the  models. Here, you can see that all models are quite similar. 
 #given this, we will choose the simplest computational model--swowfsg
@@ -64,7 +64,7 @@ model.2.2a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+
             data=spp.data.other.name)
 summary(model.2.2a)
 ###gives us sign for int, t.freq, t.phonoN, swowfsg, swow.t.fan_ss
-##R2=0.0395
+##R2=0.03394
 
 #IFF pmi_swow is the better predictor, use this model
 #model.2.2b=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -95,9 +95,9 @@ summary(model.3a.a)
 summary(model.3a.b)
 summary(model.3a.c)
 
-#model.3a.a sign are t.freq, intc, t.phonoN, full_cos_final, r2=0.04279
-#model .b sing are intc, t.freq, t.phonoN, R2= 0.04051
-#model .c sign t.freq, intc, t.phonoN 0.04282
+#model.3a.a sign are t.freq, intc, t.phonoN, full_cos_final, R2= 0.03398
+#model .b sing are intc, t.freq, t.phonoN, R2= 0.03395
+#model .c sign t.freq, intc, t.phonoN, R2= 0.03403
 #again, all models tie, so we will keep full_cos_final
 
 #IF model pmi_swow won above, use these two models
@@ -130,7 +130,7 @@ model.3.2a.a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phono
               data=spp.data.other.name)
 summary(model.3.2a.a)
 #sign are intc, t.freq, t.phonoN, full_cos_final, t.css
-#r2=0.05101
+#r2= 0.03738
 
 #IF model 3a.b won above, use this model
 #model.3.2a.b=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -189,7 +189,7 @@ model.4a.a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+
                 data=spp.data.other.name)
 summary(model.4a.a)
 #sign are int, t.freq, t.phonoN, t.css, LSA, beagal
-#R^2=0.06296
+#R^2=0.03976
 
 #IF model 3a.b won above, use this model
 #model.4a.b=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
