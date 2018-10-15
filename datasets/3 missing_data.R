@@ -189,3 +189,5 @@ master$t.POSr[master$target == "usa"] = "NN"
 master$t.POSr[master$target == "walkway"] = "NN"
 master$t.POSr[master$target == "wimp"] = "NN"
 master$t.POSr[master$target == "zit"] = "NN"
+
+write.csv(master, "itemdata.csv", row.names = F)
