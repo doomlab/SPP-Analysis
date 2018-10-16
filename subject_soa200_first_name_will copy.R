@@ -46,7 +46,7 @@ model.1 = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
               method = "ML",
               random = list(~1|target, ~1|Subject),
               na.action = "na.omit")
-summary(model.1)
+summary(model.1) 
 r.squaredGLMM(model.1) #use r2m = 0.002647292
 
 #step 2
