@@ -17,7 +17,7 @@ longdata = melt(spp.data[ , c("SOA200", "SOA1200", "task", "relation")],
 
 
 ggplot(longdata[ longdata$task == "LDT" , ], aes(value, color = relation, fill = relation)) +
-  geom_histogram(binwidth = .05) + 
+  geom_histogram() + 
   cleanup +
   xlab("Z-Priming") + 
   ylab("Frequency") +
@@ -30,7 +30,7 @@ ggplot(longdata[ longdata$task == "LDT" , ], aes(value, color = relation, fill =
   facet_grid(~variable)
 
 ggplot(longdata[ longdata$task == "NAME" , ], aes(value, color = relation, fill = relation)) +
-  geom_histogram(binwidth = .05) + 
+  geom_histogram() + 
   cleanup +
   xlab("Z-Priming") + 
   ylab("Frequency") +
