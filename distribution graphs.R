@@ -16,8 +16,9 @@ longdata = melt(spp.data[ , c("SOA200", "SOA1200", "task", "relation")],
                 id = c("task", "relation"))
 
 
-ggplot(longdata[ longdata$task == "LDT" , ], aes(value, color = relation, fill = relation)) +
-  geom_histogram() + 
+ggplot(longdata[ longdata$task == "LDT" , ], 
+       aes(value, color = relation, fill = relation)) +
+  geom_density() + 
   cleanup +
   xlab("Z-Priming") + 
   ylab("Frequency") +
