@@ -47,19 +47,20 @@ geom_split_violin <- function(mapping = NULL, data = NULL, stat = "ydensity", po
 }
 
 ggplot(longdata[ longdata$task == "LDT" , ], aes(variable, value, color = relation, fill = relation)) + geom_split_violin()+cleanup +
-  xlab("Z-Priming") + 
-  ylab("Frequency") + ylim(-2.5, 2.5)+
+  xlab("Frequency at SOA") + 
+  ylab("Z-Priming") + ylim(-2, 2)+ geom_hline(yintercept=0)+
   scale_color_manual(name = "Relation",
                      labels = c("First", "Other"),
                      values = c("Gray", "Maroon")) +
   scale_fill_manual(name = "Relation",
                     labels = c("First", "Other"),
                     values = c("Gray", "Maroon"))
+                                                              
 
 
 ggplot(longdata[ longdata$task == "NAME" , ], aes(variable, value, color = relation, fill = relation)) + geom_split_violin()+cleanup +
-  xlab("Z-Priming") + 
-  ylab("Frequency") + ylim(-2.5, 2.5)+
+  xlab("Frequency at SOA") + 
+  ylab("Z-Priming") + ylim(-2, 2)+geom_hline(yintercept=0)+
   scale_color_manual(name = "Relation",
                      labels = c("First", "Other"),
                      values = c("Gray", "Maroon")) +
