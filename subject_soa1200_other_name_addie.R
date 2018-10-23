@@ -8,13 +8,13 @@ spp.data = read.csv("subjectdataN.csv")
 spp.data.rel = subset(spp.data, 
                   target.ACC == 1 & #only trials they got right
                   isi == 1050 & #use 50 for 200; use 1050 for 1200 SOA
-                  type == "first" & #use first or other
+                  type == "other" & #use first or other
                   rel == "rel") #for related words
 
 spp.data.un = subset(spp.data, 
                      target.ACC == 1 & #only trials they got right
                        isi == 1050 & #use 50 for 200; use 1050 for 1200 SOA
-                       type == "first" & #use first or other
+                       type == "other" & #use first or other
                        rel == "un") #for unrelated words
 
 #create priming score
@@ -48,6 +48,7 @@ model.1 = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
               na.action = "na.omit")
 summary(model.1)
 r.squaredGLMM(model.1) #use r2m
+#0.002578168
 
 #step 2
 #2a swowfsg added now
@@ -61,6 +62,7 @@ model.2a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
 
 summary(model.2a)
 r.squaredGLMM(model.2a)
+#0.002699053
 
 #2b pmi_swow added now
 model.2b = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
@@ -73,6 +75,7 @@ model.2b = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
 
 summary(model.2b)
 r.squaredGLMM(model.2b)
+#0.002688164
 
 #2c swowfsg and pmi_swow together
 model.2c = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
@@ -85,6 +88,7 @@ model.2c = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+
 
 summary(model.2c)
 r.squaredGLMM(model.2c)
+#0.002702813
 
 #step 2.2 add variables based on winning model above 
 
@@ -98,6 +102,7 @@ model.2.2a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN
 
 summary(model.2.2a)
 r.squaredGLMM(model.2.2a)
+#0.002948513
 
 #step 3
 
@@ -113,6 +118,7 @@ model.3a.a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN
 
 summary(model.3a.a)
 r.squaredGLMM(model.3a.a)
+#0.002948524
 
 #just pmi cosine
 model.3a.b = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -126,6 +132,7 @@ model.3a.b = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN
 
 summary(model.3a.b)
 r.squaredGLMM(model.3a.b)
+#0.003045522
 
 #just both cosine and pmi cosine
 model.3a.c = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -139,6 +146,7 @@ model.3a.c = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN
 
 summary(model.3a.c)
 r.squaredGLMM(model.3a.c)
+#0.003074909
 
 #step 3.2 add p.css+t.css+p.fss+t.fss to final model above 
 model.3.2a.a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -153,6 +161,7 @@ model.3.2a.a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orth
 
 summary(model.3.2a.a)
 r.squaredGLMM(model.3.2a.a)
+#0.003010882
 
 #step 4 add distance, LSA, beagle
 model.4a.a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
@@ -168,3 +177,4 @@ model.4a.a = lme(priming.RT ~ p.freq+t.freq+t.length+p.length+ p.orthoN+t.orthoN
 
 summary(model.4a.a)
 r.squaredGLMM(model.4a.a)
+#0.00291595
