@@ -2,7 +2,7 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #use the right file either LDT or N
-spp.data = read.csv("subjectdataN.csv") 
+spp.data = read.csv("subjectdataLDT.csv") 
 #pull only the information you are interested in
 spp.data.rel = subset(spp.data, 
                       target.ACC == 1 & #only trials they got right
