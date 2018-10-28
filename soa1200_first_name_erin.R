@@ -41,57 +41,57 @@ summary(model.2c)
 
 #2.2 add fsg_ss and fanss
 
-#pmi_swow is the winner 
-model.2.2b=lm(SOA1200~p.freq+t.freq+t.length+
+#swow fsg is the winner 
+model.2.2a=lm(SOA1200~p.freq+t.freq+t.length+
                 p.length+p.orthoN+t.orthoN+p.phonoN+
                 t.phonoN+p.POSr+t.POSr+
-                pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                 swow.t.fan_ss+ swow.p.fan_ss, 
             data=spp.data.subset)
-summary(model.2.2b)
+summary(model.2.2a)
 
 #3rd-semantics. For this, it will be like the second step; 
 
-model.3b.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
+model.3a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
                 p.phonoN+t.phonoN+p.POSr+t.POSr+
-                pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                 swow.t.fan_ss+ swow.p.fan_ss+full_cos_final, 
                         data=spp.data.subset)
-summary(model.3b.a)
+summary(model.3a.a)
 
-model.3b.b=lm(SOA1200~p.freq+t.freq+t.length+p.length+
+model.3a.b=lm(SOA1200~p.freq+t.freq+t.length+p.length+
                 p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
-                pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                 swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine, 
               data=spp.data.subset)
 
-summary(model.3b.b)
+summary(model.3a.b)
 
-model.3b.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+
+model.3a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+
                 p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
-                pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                 swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+pmi_cosine, 
               data=spp.data.subset)
 
-summary(model.3b.c)
+summary(model.3a.c)
 
 #3.2-Cosine set size p.css, t.css, p.fss, t.fss
-model.3.2b.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
+model.3.2a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
                   p.phonoN+t.phonoN+p.POSr+t.POSr+
-                  pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                  swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                   swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                   p.css+t.css+p.fss+t.fss, 
               data=spp.data.subset)
-summary(model.3.2b.a)
+summary(model.3.2a.a)
 
 #4th-thematics; association and semantic relationships take together.
 #distance, LSA, beagle
-model.4b.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
+model.4a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+
                   p.phonoN+t.phonoN+p.POSr+t.POSr+
                   pmi_swow+swow.t.fsg_ss+ swow.p.fsg_ss+ 
                   swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                   p.css+t.css+p.fss+t.fss+
                 distance+LSA+beagle, 
                 data=spp.data.subset)
-summary(model.4b.a)
+summary(model.4a.a)
 

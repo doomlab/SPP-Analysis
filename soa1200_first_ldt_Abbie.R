@@ -62,23 +62,28 @@ summary(model.2.2a)
 # Step Three ------------------------------------------------------------------
 
 #IF model swowfsg won above, OR  models tied, use these two models
-model.3a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+model.3a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final, 
               data=spp.data.first.ldt)
-model.3a.d=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+model.3a.b=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine, 
               data=spp.data.first.ldt)
-summary(model.3a.c) #R2 = .037
-summary(model.3a.d) #R2 = .035
+model.3a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                swow.t.fan_ss+ swow.p.fan_ss+pmi_cosine+full_cos_final, 
+              data=spp.data.first.ldt)
+summary(model.3a.a) #R2 = .037
+summary(model.3a.b) #R2 = .035
+summary(model.3a.c)
 #Not really sure if these are that different?
 
 #3.2-Cosine set size p.css, t.css, p.fss, t.fss
 #IF model 3a.c won above, use this model
-model.3.2a.c=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+model.3.2a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                   swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                   p.css+t.css+p.fss+t.fss, 
                 data=spp.data.first.ldt)
-summary(model.3.2a.c)
+summary(model.3.2a.a)
 #sign are intc, t.freq, t.phonoN, full_cos_final, t.css
 #r2=0.038
 
@@ -88,11 +93,11 @@ summary(model.3.2a.c)
 #4th-thematics; association and semantic relationships take together.
 #distance, LSA, beagle
 #IF model 3a.c won above, use this model
-model.4a.c=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+model.4a.a=lm(SOA200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
                 swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
                 p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
               data=spp.data.first.ldt)
-summary(model.4a.c)
+summary(model.4a.a)
 #sign are int, t.freq, t.phonoN, t.css, LSA, beagal
 #R^2=0.06296
 

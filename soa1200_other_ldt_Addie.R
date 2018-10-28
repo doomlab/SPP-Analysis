@@ -99,9 +99,17 @@ summary(model.3a.c)
 #R^2 = 0.03667
 
 
+model.3.2a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
+                  swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ 
+                  swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
+                  p.css+t.css+p.fss+t.fss, 
+                data=spp.data.other.ldt)
+summary(model.3.2a.a)
+
 #IF model 3a.a won above, use this model
 model.4a.a=lm(SOA1200~p.freq+t.freq+t.length+p.length+p.orthoN+t.orthoN+p.phonoN+t.phonoN+p.POSr+t.POSr+
-                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ swow.p.fan_ss+full_cos_final+
+                swowfsg+swow.t.fsg_ss+ swow.p.fsg_ss+ swow.t.fan_ss+ 
+                swow.p.fan_ss+full_cos_final+
                 p.css+t.css+p.fss+t.fss+distance+LSA+beagle, 
               data=spp.data.other.ldt)
 summary(model.4a.a)
