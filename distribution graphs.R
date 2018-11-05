@@ -277,7 +277,7 @@ spp.data.rel$priming.RT = spp.data.rel$RTunrelated - spp.data.rel$target.RT
 #unrelated minus related meaning positive = priming, negative = slowing
 
 #merge to the new dataset
-final_subject_ldt = spp.data.rel[ , c("isi", "type", "priming.RT")]
+final_subject_name = spp.data.rel[ , c("isi", "type", "priming.RT")]
 
 # 200 other name -----------------------------------------------------------
 #pull only the information you are interested in
@@ -311,7 +311,7 @@ spp.data.rel$RTunrelated = vlookup(as.character(spp.data.rel$target), RTtosubtra
 spp.data.rel$priming.RT = spp.data.rel$RTunrelated - spp.data.rel$target.RT
 
 #merge to the new dataset
-final_subject_ldt = rbind(final_subject_ldt, spp.data.rel[ , c("isi", "type", "priming.RT")])
+final_subject_name = rbind(final_subject_name, spp.data.rel[ , c("isi", "type", "priming.RT")])
 
 # 1200 first name ----------------------------------------------------------------
 
@@ -345,7 +345,7 @@ spp.data.rel$RTunrelated = vlookup(as.character(spp.data.rel$target), RTtosubtra
 spp.data.rel$priming.RT = spp.data.rel$RTunrelated - spp.data.rel$target.RT
 
 #merge to the new dataset
-final_subject_ldt = rbind(final_subject_ldt, spp.data.rel[ , c("isi", "type", "priming.RT")])
+final_subject_name = rbind(final_subject_name, spp.data.rel[ , c("isi", "type", "priming.RT")])
 
 
 # 1200 other name ----------------------------------------------------------
@@ -381,16 +381,16 @@ spp.data.rel$RTunrelated = vlookup(as.character(spp.data.rel$target), RTtosubtra
 spp.data.rel$priming.RT = spp.data.rel$RTunrelated - spp.data.rel$target.RT
 
 #merge to the new dataset
-final_subject_ldt = rbind(final_subject_ldt, spp.data.rel[ , c("isi", "type", "priming.RT")])
+final_subject_name = rbind(final_subject_name, spp.data.rel[ , c("isi", "type", "priming.RT")])
 
-final_subject_ldt$isi = factor(final_subject_ldt$isi,
+final_subject_name$isi = factor(final_subject_name$isi,
                                levels = c(50, 1050),
                                labels = c("SOA200", "SOA1200"))
 
-tiff(filename = "ldt_subject.tiff", res = 300, width = 8, 
+tiff(filename = "name_subject.tiff", res = 300, width = 8, 
      height = 4, units = 'in', compression = "lzw")
 
-ggplot(final_subject_ldt, 
+ggplot(final_subject_name, 
        aes(isi, priming.RT, color = type, fill = type)) + 
   geom_split_violin()+ 
   cleanup +
